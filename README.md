@@ -1,45 +1,44 @@
-# Flask Tailwind HTMX Project Template
+# AId: EMS Voice-Driven Healthcare Assistant
+**Project Overview**
 
-This is a Flask web application utilizing Tailwind CSS for styling and HTMX for dynamic content without writing JavaScript.
+AId is an innovative healthcare application designed for Emergency Medical Services (EMS). It utilizes advanced AI technology to recognize, transcribe, and analyze vital medical data from spoken inputs. The app is tailored to aid EMS professionals by providing real-time transcription of medical data, interactive AI support, and reliable data logging with user verification for enhanced accuracy.
 
-# Features
+**Features**
 
-**Flask:** A lightweight WSGI web application framework.
+- Voice Recognition: Transcribes spoken medical data in real-time.
+- Data Logging: Logs vital signs and other medical information with timestamps.
+-  AI Assistance: Provides interactive, AI-driven suggestions and support.
+-  User Verification: Ensures data accuracy through user confirmation processes.
 
-**Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
+**Installation**
 
-**HTMX:** Allows you to access AJAX, CSS Transitions, WebSockets, and Server Sent Events directly in HTML, making it easy to build modern user interfaces.
+(Instructions on how to install and set up the app.)
 
-# Prerequisites
+**Usage**
 
-- Python 3
-- Flask
-- Access to the internet for CDN resources (Tailwind CSS, HTMX)
+(Brief explanation of how to use the app.)
 
-# Installation
+# To-Do List
 
-Clone, Navigate, Create a virtual environment:
+**In Progress**
 
-```
-git clone <repository-url>
-cd flask-tailwind-htmx
-python3 -m venv venv
-```
+- [ ] Voice Recording Implementation: Set up the basic voice recording feature.
+- [ ] Speech-to-Text Conversion: Integrate with OpenAI's Whisper for transcription.
 
-On Windows:
+**Upcoming**
 
-```venv\Scripts\activate```
+- [ ] Audio Transcoding: Implement FFmpeg for audio standardization.
+- [ ] Keyword Recognition: Develop an algorithm to identify specific medical terminologies and vital data.
+- [ ]  UI Development: Design and implement a user-friendly interface.
 
-On MacOS/Linux:
+**Planned** 
 
-```source venv/bin/activate```
+- [ ] Timestamp and Data Logging: Implement a system for logging data with accurate timestamps.
+- [ ] Real-Time Feedback System: Integrate with OpenAI's GPT-3.5-turbo for interactive AI feedback.
+- [ ] Comprehensive Testing and Validation: Ensure the functionality and accuracy of all features.
+- [ ] Expand Voice Recognition Capabilities: Enhance the system to recognize a wider range of medical terms and cues.
 
-Install Flask:
 
-```pip install Flask```
+**Long-Term Goals**
 
-# Running the Application
-
-Start the Flask application:
-flask run
-Open a web browser and navigate to http://localhost:5000
+- [ ] Scalability Enhancements: Improve the app's scalability for broader deployment.
