@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Flask App</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@latest/dist/tailwind.min.css" rel="stylesheet">
+    <!-- HTMX CDN -->
+    <script src="https://unpkg.com/htmx.org"></script>
+</head>
+<body class="m-8">
+    <header class="text-center mb-8">
+        <h1 class="text-4xl font-bold">Welcome to My Flask App</h1>
+    </header>
+
+    <section class="text-center">
+        <p class="mb-4">This is a basic example of using Flask, Tailwind CSS, and HTMX.</p>
+        <button 
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            hx-get="/random-number"
+            hx-target="#random-number"
+            hx-trigger="click"
+        >
+            Generate Random Number
+        </button>
+    </section>
+
+    <div id="random-number" class="mt-4 text-center text-2xl font-semibold"></div>
+</body>
+</html>
