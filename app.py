@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
+import whisper
 import os
 
 app = Flask(__name__)
@@ -20,8 +21,15 @@ def upload_audio():
         filename = secure_filename(file.filename)
         save_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(save_path)
-        
-    return f'File saved at {save_path}'
+
+        # Process with Whisper for speech-to-text
+        model = whisper.load_model("base")
+        result = model.transcribe(save_path)
+        transcription = result["text"]
+
+        return f'Transcription: {transcription}'
+    else:
+        return 'No file uploaded', 400
 
 if __name__ == '__main__':
     app.run(debug=True)
