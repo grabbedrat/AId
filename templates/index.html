@@ -16,16 +16,53 @@
 
     <section class="text-center">
         <p class="mb-4">This is a basic example of using Flask, Tailwind CSS, and HTMX.</p>
-        <button 
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            hx-get="/random-number"
-            hx-target="#random-number"
-            hx-trigger="click"
-        >
-            Generate Random Number
+        <button id="startRecording" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+            Start Recording
+        </button>
+        <button id="stopRecording" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" disabled>
+            Stop Recording
         </button>
     </section>
 
-    <div id="random-number" class="mt-4 text-center text-2xl font-semibold"></div>
 </body>
 </html>
+<script>
+    let mediaRecorder;
+    let audioChunks = [];
+
+    document.getElementById("startRecording").onclick = function() {
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.ondataavailable = event => {
+                    audioChunks.push(event.data);
+                };
+
+                mediaRecorder.start();
+                document.getElementById("stopRecording").disabled = false;
+            });
+    };
+
+    document.getElementById("stopRecording").onclick = function() {
+        mediaRecorder.stop();
+        mediaRecorder.onstop = () => {
+            const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+            const formData = new FormData();
+            formData.append("audio_data", audioBlob);
+
+            fetch('/upload-audio', {
+                method: 'POST',
+                body: formData
+            }).then(response => {
+                return response.text();
+            }).then(data => {
+                console.log(data); // You can process the server response here
+            }).catch(error => {
+                console.error(error);
+            });
+
+            audioChunks = [];
+            document.getElementById("stopRecording").disabled = true;
+        };
+    };
+</script>
