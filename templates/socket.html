@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Stream</title>
+    <script src="https://cdn.socket.io/socket.io-3.1.3.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+            socket.on('connect', function() {
+                console.log('Connected to WebSocket server');
+            });
+
+            // Function to handle audio streaming
+            function startStreamingAudio() {
+                navigator.mediaDevices.getUserMedia({ audio: true })
+                    .then(stream => {
+                        const mediaRecorder = new MediaRecorder(stream);
+                        mediaRecorder.start();
+
+                        mediaRecorder.addEventListener('dataavailable', event => {
+                            if (event.data.size > 0) {
+                                socket.emit('audio_chunk', event.data);
+                            }
+                        });
+
+                        mediaRecorder.addEventListener('stop', () => {
+                            socket.disconnect();
+                        });
+
+                        // Stop recording after 30 seconds (you can adjust this)
+                        setTimeout(() => mediaRecorder.stop(), 30000);
+                    });
+            }
+
+            document.getElementById('start').addEventListener('click', startStreamingAudio);
+        });
+    </script>
+</head>
+<body>
+    <button id="start">Start Streaming</button>
+</body>
+</html>

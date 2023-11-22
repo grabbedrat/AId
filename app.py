@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from werkzeug.utils import secure_filename
+from whisper_online import process_audio_transcription
 import whisper
 import os
 
@@ -11,6 +12,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/socket')
+def socket():
+    return render_template('socket.html')
 
 @app.route('/upload-audio', methods=['POST'])
 def upload_audio():
@@ -26,6 +31,9 @@ def upload_audio():
         model = whisper.load_model("base")
         result = model.transcribe(save_path)
         transcription = result["text"]
+
+        process_audio_transcription('UPLOAD_FOLDER', min_chunk_size=1.5, model='medium', language='de')
+
 
         return f'Transcription: {transcription}'
     else:

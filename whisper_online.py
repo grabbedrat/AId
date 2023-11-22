@@ -451,10 +451,12 @@ def create_tokenizer(lan):
 
 
 
-## main:
-
-if __name__ == "__main__":
-
+def process_audio_transcription(audio_path, min_chunk_size=1.0, model='large-v2', 
+                                model_cache_dir=None, model_dir=None, language='en', 
+                                task='transcribe', start_at=0.0, backend="faster-whisper", 
+                                offline=False, comp_unaware=False, vad=False):
+    import time
+    import sys
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('audio_path', type=str, help="Filename of 16kHz mono channel wav, on which live streaming is simulated.")

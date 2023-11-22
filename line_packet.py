@@ -81,7 +81,7 @@ def receive_one_line(socket):
 
 def receive_lines(socket):
     try:
-        data = socket.recv(PACKET_SIZE)
+        data = socket.recv(PACKET_SIZE)a
     except BlockingIOError:
         return []
     if data is None:  # Connection has been closed.
